@@ -10,7 +10,18 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add("login", (email, password) => {
+  const userInput = "#user_login";
+  const passwordInput = "#user_password";
+  const loginButton = "#login_form > div.form-actions > input";
+  cy.visit("http://zero.webappsecurity.com/login.html");
+  cy.get(userInput).type(email);
+  cy.get(passwordInput).type(password, { sensitive: true });
+  cy.get(loginButton).click();
+
+  // aqui tambien puedes poner tu codigo para hacer una peticion y guardarlo al login y gaurdar el token
+  // en una variable global
+});
 //
 //
 // -- This is a child command --
@@ -22,4 +33,17 @@
 //
 //
 // -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.overwrite("type", (originalFn, element, text, options) => {
+  if (options && options.sensitive) {
+    // turn off original log
+    options.log = false;
+    // create our own log with masked message
+    Cypress.log({
+      $el: element,
+      name: "type",
+      message: "*".repeat(text.length),
+    });
+  }
+
+  return originalFn(element, text, options);
+});
