@@ -11,9 +11,99 @@ describe("login con page object", () => {
     loginPage.validateErrorLogin();
   });
 
-  it("login exitoso", () => {
+  it("login exitoso con cy.env", () => {
     loginPage.validatePageLogin();
-    loginPage.login("username", "password");
+    // las Cy.env aunque las setes durante la prueba ese es su scope no estaran disponibles en otros tests
+    //Great for values that need to be checked into source control and remain the same on all machines.
+    //Only works for values that should be the same on across all machines.
+    cy.log(Cypress.env());
+    loginPage.login(
+      Cypress.env("credentials").user,
+      Cypress.env("credentials").password
+    );
     loginPage.validateSuccessLogin();
   });
+
+  it("login erroneo con cy.env.json", () => {
+    loginPage.validatePageLogin();
+    //Dedicated file just for environment variables.
+    //Enables you to generate this file from other build processes.
+    //Values can be different on each machine (if not checked into source control).
+    // Another file you have to deal with.
+    // Overkill for 1 or 2 environment variables.
+
+    //si lo nombramos de igual manera se va a sobre escribir
+
+    cy.log(Cypress.env());
+    loginPage.login(
+      Cypress.env("credentials").user,
+      Cypress.env("credentials").password
+    );
+    loginPage.validateErrorLogin();
+    //Variable de entorno seteada desde el comando de cypress open o cypress run
+    // Benefits
+    //
+    // Does not require any changes to files or configuration.
+    //     More clear where environment variables come from.
+    //     Allows for dynamic values between different machines.
+    //     Overwrites all other forms of setting env variables.
+    //     Downsides
+    //
+    // Pain to write the --env options everywhere you use Cypress.
+    //     No support for nested fields.
+  });
+
+  it("login con variable de entorno de la terminal", () => {
+    loginPage.validatePageLogin();
+
+    //Variable de entorno seteada desde el comando de cypress open o cypress run
+    // Benefits
+    //
+    // Does not require any changes to files or configuration.
+    //     More clear where environment variables come from.
+    //     Allows for dynamic values between different machines.
+    //     Overwrites all other forms of setting env variables.
+    //     Downsides
+    //
+    // Pain to write the --env options everywhere you use Cypress.
+    //     No support for nested fields.
+    cy.log(Cypress.env());
+    loginPage.login(
+      Cypress.env("credentials").user,
+      Cypress.env("credentials").password
+    );
+    loginPage.validateErrorLogin();
+  });
 });
+
+describe.only(
+  "login erroneo con configuracion",
+  {
+    env: {
+      usuarioErroneo: "error1",
+      passwordErroneo: "error2",
+    },
+  },
+  () => {
+    beforeEach(() => {
+      loginPage.visit();
+    });
+
+    it("login erroneo", () => {
+      loginPage.validatePageLogin();
+      cy.log(Cypress.env());
+      loginPage.login(
+        Cypress.env("usuarioErroneo"),
+        Cypress.env("passwordErroneo")
+      );
+      loginPage.validateErrorLogin();
+    });
+
+    it("login erroneo con variables de entorno", () => {
+      loginPage.validatePageLogin();
+      cy.log(Cypress.env());
+      loginPage.login(Cypress.env("variable"), Cypress.env("variable"));
+      loginPage.validateErrorLogin();
+    });
+  }
+);

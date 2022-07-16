@@ -15,6 +15,17 @@ module.exports = defineConfig({
     // },
     setupNodeEvents(on, config) {
       // implement node event listeners here
+
+      config.env.variable = process.env.NODE_ENV ?? "no hay variable";
+
+      return config;
+    },
+
+    env: {
+      credentials: {
+        user: "username",
+        password: "password",
+      },
     },
   },
 });
