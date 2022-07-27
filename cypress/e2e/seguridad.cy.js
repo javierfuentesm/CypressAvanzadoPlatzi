@@ -19,7 +19,7 @@ describe("Seguridad", function () {
     // cy.visit("https://pokedexpokemon.netlify.app");
   });
 
-  it.only("navego dos dominios en el mismo test", function () {
+  it("navego dos dominios en el mismo test", function () {
     cy.visit("/");
     cy.get("h1")
       .first()
@@ -50,7 +50,27 @@ describe("Seguridad", function () {
     // cy.wait(1000);
     cy.get("h1").first().invoke("text").should("be.equal", "Bulbasaur");
 
-    //no sirve copartir asi
+    //no sirve compartir asi
     cy.log(text2);
+  });
+
+  //Pero que pasa si no puedo usar la última version de y quiero hacer lo mismo de que forma se puede realizar
+  // hay que tener en cuenta que normalmente las razones por las cuales queremos visitar dos páginas en el mismo test es para compartir informacion
+
+  it.only("Compartir informacion sin usar session", function () {
+    cy.visit("/");
+    cy.get("h1")
+      .first()
+      .invoke("text")
+      .then((text) => {
+        cy.task("guardar", { texto: text });
+      });
+  });
+
+  it.only("Compartir informacion sin usar session 2 ", function () {
+    cy.visit("https://todo-cypress-iota.vercel.app");
+    cy.task("obtener", "texto").then((valor) => {
+      cy.get("#title").type(valor);
+    });
   });
 });
