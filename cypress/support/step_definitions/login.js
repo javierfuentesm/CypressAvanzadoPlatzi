@@ -3,7 +3,7 @@ const {
   When,
   Then,
 } = require("@badeball/cypress-cucumber-preprocessor");
-const { loginPage } = require("../../../pageObjects/LoginPage");
+const { loginPage } = require("../../pageObjects/LoginPage");
 
 Given(/^I am on the login page$/, function () {
   loginPage.visit();
