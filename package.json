@@ -8,7 +8,9 @@
     "test-update-snapshot": "cypress open --env updateSnapshots=true",
     "variable-de-entorno": "cypress open --env VARIABLE_DE_ENTORNO=valor",
     "variable-de-entorno-del-sistema-mac": "export NODE_ENV=VARIABLE_DE_DESARROLLO && cypress open",
-    "variable-de-entorno-del-sistema-windows": "SET NODE_ENV=VARIABLE_DE_DESARROLLO cypress open"
+    "variable-de-entorno-del-sistema-windows": "SET NODE_ENV=VARIABLE_DE_DESARROLLO cypress open",
+    "cucumber": "cypress run",
+    "cucumber:tags": "cypress run --env tags=@probando"
   },
   "keywords": [],
   "author": "",
