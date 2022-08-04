@@ -3,7 +3,10 @@ const {
   addMatchImageSnapshotPlugin,
 } = require("cypress-image-snapshot/plugin");
 const webpack = require("@cypress/webpack-preprocessor");
-const preprocessor = require("@badeball/cypress-cucumber-preprocessor");
+const {
+  addCucumberPreprocessorPlugin,
+} = require("@badeball/cypress-cucumber-preprocessor");
+const allureWriter = require("@shelex/cypress-allure-plugin/writer");
 
 const values = {};
 
@@ -26,7 +29,7 @@ async function setupNodeEvents(on, config) {
       return values[key] ?? "no hay valor";
     },
   });
-  await preprocessor.addCucumberPreprocessorPlugin(on, config);
+  await addCucumberPreprocessorPlugin(on, config);
 
   on(
     "file:preprocessor",
@@ -51,15 +54,20 @@ async function setupNodeEvents(on, config) {
       },
     })
   );
-
+  // on("file:preprocessor", webpack);
+  allureWriter(on, config);
   // Make sure to return the config object as it might have been modified by the plugin.
   return config;
 }
 
 module.exports = defineConfig({
-  reporter: "cypress-multi-reporters",
-  reporterOptions: {
-    configFile: "reporter-config.json",
+  // reporter: "cypress-multi-reporters",
+  // reporterOptions: {
+  //   configFile: "reporter-config.json",
+  // },
+  env: {
+    allure: true,
+    allureClearSkippedTests: true,
   },
   e2e: {
     specPattern: "**/*.feature",

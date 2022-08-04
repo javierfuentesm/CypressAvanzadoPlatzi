@@ -14,7 +14,9 @@
     "delete:results": "rm -r cypress/results/* || true",
     "report": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json",
     "mochawesome:report": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
-    "junit:reports": "jrm cypress/results/junit/combined-report.xml \"cypress/results/junit/*.xml\""
+    "junit:reports": "jrm cypress/results/junit/combined-report.xml \"cypress/results/junit/*.xml\"",
+    "allure:report": "npx cypress run --env allure=true",
+    "allure:serve": "allure serve allure-results"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +27,7 @@
     "cypress": "^10.3.0"
   },
   "devDependencies": {
+    "@shelex/cypress-allure-plugin": "^2.28.1",
     "cypress-image-snapshot": "^4.0.1",
     "cypress-multi-reporters": "^1.6.1",
     "cypress-xpath": "^2.0.0",
