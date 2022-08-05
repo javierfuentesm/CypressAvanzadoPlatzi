@@ -37,6 +37,9 @@ async function setupNodeEvents(on, config) {
       webpackOptions: {
         resolve: {
           extensions: [".ts", ".js"],
+          fallback: {
+            util: false,
+          },
         },
         module: {
           rules: [
@@ -70,8 +73,10 @@ module.exports = defineConfig({
     allureClearSkippedTests: true,
   },
   e2e: {
+    baseUrl: "https://pokedexpokemon.netlify.app",
+    experimentalSessionAndOrigin: true,
     specPattern: "**/*.feature",
-    supportFile: false,
+    // supportFile: false,
     setupNodeEvents,
   },
 });
