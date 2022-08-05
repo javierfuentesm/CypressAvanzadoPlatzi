@@ -37,9 +37,9 @@ async function setupNodeEvents(on, config) {
       webpackOptions: {
         resolve: {
           extensions: [".ts", ".js"],
-          fallback: {
-            util: false,
-          },
+          // fallback: {
+          //   util: false,
+          // },
         },
         module: {
           rules: [

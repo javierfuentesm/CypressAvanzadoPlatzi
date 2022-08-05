@@ -27,7 +27,7 @@
     "cypress": "^10.4.0"
   },
   "devDependencies": {
-    "@shelex/cypress-allure-plugin": "^2.28.1",
+    "@shelex/cypress-allure-plugin": "^2.28.3",
     "cypress-image-snapshot": "^4.0.1",
     "cypress-multi-reporters": "^1.6.1",
     "cypress-xpath": "^2.0.0",
