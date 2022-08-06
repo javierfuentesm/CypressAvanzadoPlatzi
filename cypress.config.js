@@ -63,6 +63,8 @@ async function setupNodeEvents(on, config) {
 }
 
 module.exports = defineConfig({
+//esto se agrega autoamticamente
+  projectId: "p9rq68",
   // reporter: "cypress-multi-reporters",
   // reporterOptions: {
   //   configFile: "reporter-config.json",
