@@ -57,7 +57,6 @@ async function setupNodeEvents(on, config) {
       },
     })
   );
-  // on("file:preprocessor", webpack);
   allureWriter(on, config);
   // Make sure to return the config object as it might have been modified by the plugin.
   return config;
@@ -68,6 +67,7 @@ module.exports = defineConfig({
   // reporterOptions: {
   //   configFile: "reporter-config.json",
   // },
+  //con esto el --env allure=true ya no se necesita
   env: {
     allure: true,
     allureClearSkippedTests: true,

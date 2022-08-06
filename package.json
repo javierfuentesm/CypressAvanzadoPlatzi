@@ -16,7 +16,9 @@
     "mochawesome:report": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
     "junit:reports": "jrm cypress/results/junit/combined-report.xml \"cypress/results/junit/*.xml\"",
     "allure:report": "npx cypress run --env allure=true",
-    "allure:serve": "allure serve allure-results"
+    "allure:serve": "allure serve allure-results",
+    "allure:report:docker": "npx cypress run",
+    "allure:serve:docker": "allure serve dockerReports"
   },
   "keywords": [],
   "author": "",
