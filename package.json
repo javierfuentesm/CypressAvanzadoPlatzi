@@ -19,7 +19,9 @@
     "allure:serve": "allure serve allure-results",
     "allure:report:docker": "npx cypress run",
     "allure:serve:docker": "allure serve dockerReports",
-    "run-dashboard": "cypress run --record --key b7f6e7b0-ec4e-4047-a283-a8bc9995e20e"
+    "run-dashboard": "cypress run --record --key b7f6e7b0-ec4e-4047-a283-a8bc9995e20e",
+    "run:dashboard:alternativo": "export CYPRESS_API_URL=\"http://localhost:1234/\"\n npx cy2 run --record --key XXX --parallel --ci-build-id `date +%s`",
+    "run:dashboard:alternativo:parallel": "CYPRESS_API_URL=\"http://localhost:1234/\" npx cy2 run --parallel --record --key somekey --ci-build-id ejemplo-paralelo"
   },
   "keywords": [],
   "author": "",
